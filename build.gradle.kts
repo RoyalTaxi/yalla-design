@@ -8,8 +8,8 @@ plugins {
     `maven-publish`
 }
 
-group = "uz.yalla"
-version = "1.0.1"
+group = "com.github.RoyalTaxi"
+version = "1.0.0"
 
 kotlin {
     androidTarget {
@@ -66,17 +66,11 @@ compose.resources {
     generateResClass = always
 }
 
-publishing {
-    publications.withType<MavenPublication> {
-        artifactId = artifactId.replace("yalla-uikit", "uikit")
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/RoyalTaxi/yalla-uikit")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+afterEvaluate {
+    publishing {
+        publications.configureEach {
+            if (this is MavenPublication) {
+                artifactId = artifactId.replace("yalla-uikit", "uikit")
             }
         }
     }
