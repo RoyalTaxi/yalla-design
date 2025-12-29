@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.github.RoyalTaxi"
-version = "1.0.0"
+version = "main-SNAPSHOT"
 
 kotlin {
     androidTarget {
