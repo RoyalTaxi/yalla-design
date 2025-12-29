@@ -13,8 +13,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import uz.yalla.uikit.color.ColorScheme
 import uz.yalla.uikit.color.LocalColorScheme
-import uz.yalla.uikit.color.darkColorScheme
-import uz.yalla.uikit.color.lightColorScheme
+import uz.yalla.uikit.color.dark
+import uz.yalla.uikit.color.light
 import uz.yalla.uikit.font.FontScheme
 import uz.yalla.uikit.font.LocalFontScheme
 import uz.yalla.uikit.font.rememberFontScheme
@@ -35,7 +35,7 @@ import uz.yalla.uikit.system.SystemBarColors
 @Composable
 fun YallaTheme(
     isDark: Boolean = isSystemInDarkTheme(),
-    colorScheme: ColorScheme = if (isDark) darkColorScheme() else lightColorScheme(),
+    colorScheme: ColorScheme = if (isDark) dark() else light(),
     fontScheme: FontScheme = rememberFontScheme(),
     content: @Composable () -> Unit
 ) {
@@ -92,18 +92,18 @@ fun YallaTheme(
 /**
  * Access the current Yalla design system values.
  */
-object YallaDesign {
+object System {
     /**
      * The current color scheme provided by [YallaTheme].
      */
-    val colors: ColorScheme
+    val color: ColorScheme
         @Composable
         get() = LocalColorScheme.current
 
     /**
      * The current font scheme provided by [YallaTheme].
      */
-    val fonts: FontScheme
+    val font: FontScheme
         @Composable
         get() = LocalFontScheme.current
 }

@@ -144,7 +144,7 @@ class ColorScheme(
     )
 }
 
-fun lightColorScheme(
+fun light(
     textBase: Color = LightTextBase,
     textSubtle: Color = LightTextSubtle,
     textLink: Color = LightTextLink,
@@ -212,7 +212,7 @@ fun lightColorScheme(
     color5 = color5
 )
 
-fun darkColorScheme(
+fun dark(
     textBase: Color = DarkTextBase,
     textSubtle: Color = DarkTextSubtle,
     textLink: Color = DarkTextLink,
@@ -280,4 +280,7 @@ fun darkColorScheme(
     color5 = color5
 )
 
-val LocalColorScheme = staticCompositionLocalOf { lightColorScheme() }
+val LocalColorScheme = staticCompositionLocalOf { light() }
+
+// Alias for backward compatibility
+val LocalCustomColorScheme = LocalColorScheme
