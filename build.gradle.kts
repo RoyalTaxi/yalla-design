@@ -26,7 +26,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "YallaUIKit"
+            baseName = "YallaDesign"
             isStatic = true
         }
     }
@@ -48,7 +48,7 @@ kotlin {
 }
 
 android {
-    namespace = "uz.yalla.uikit"
+    namespace = "uz.yalla.design"
     compileSdk = 35
 
     defaultConfig {
@@ -63,7 +63,7 @@ android {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "uz.yalla.uikit.generated.resources"
+    packageOfResClass = "uz.yalla.design.generated.resources"
     generateResClass = always
 }
 
@@ -71,7 +71,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/RoyalTaxi/yalla-uikit")
+            url = uri("https://maven.pkg.github.com/RoyalTaxi/yalla-design")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -85,7 +85,7 @@ afterEvaluate {
         publications.withType<MavenPublication>().configureEach {
             val baseName = rootProject.name
             if (artifactId.startsWith(baseName)) {
-                artifactId = artifactId.replace(baseName, "uikit")
+                artifactId = artifactId.replace(baseName, "design")
             }
         }
     }

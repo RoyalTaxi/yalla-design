@@ -1,4 +1,4 @@
-package uz.yalla.uikit.color
+package uz.yalla.design.color
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color

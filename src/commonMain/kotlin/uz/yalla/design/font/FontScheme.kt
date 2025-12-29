@@ -1,4 +1,4 @@
-package uz.yalla.uikit.font
+package uz.yalla.design.font
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle

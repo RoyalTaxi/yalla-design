@@ -1,4 +1,4 @@
-package uz.yalla.uikit.theme
+package uz.yalla.design.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.ripple.RippleAlpha
@@ -11,26 +11,14 @@ import androidx.compose.material3.lightColorScheme as materialLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import uz.yalla.uikit.color.ColorScheme
-import uz.yalla.uikit.color.LocalColorScheme
-import uz.yalla.uikit.color.dark
-import uz.yalla.uikit.color.light
-import uz.yalla.uikit.font.FontScheme
-import uz.yalla.uikit.font.LocalFontScheme
-import uz.yalla.uikit.font.rememberFontScheme
-import uz.yalla.uikit.system.SystemBarColors
+import uz.yalla.design.color.ColorScheme
+import uz.yalla.design.color.LocalColorScheme
+import uz.yalla.design.color.dark
+import uz.yalla.design.color.light
+import uz.yalla.design.font.FontScheme
+import uz.yalla.design.font.LocalFontScheme
+import uz.yalla.design.font.rememberFontScheme
 
-/**
- * Yalla UI Kit Theme.
- *
- * This is the main theme composable for the Yalla design system.
- * It provides colors, typography, and Material 3 theming.
- *
- * @param isDark Whether to use dark theme. Defaults to system setting.
- * @param colorScheme Optional custom color scheme. If not provided, uses default light/dark scheme.
- * @param fontScheme Optional custom font scheme. If not provided, uses default fonts.
- * @param content The content to wrap with the theme.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun YallaTheme(
@@ -75,8 +63,6 @@ fun YallaTheme(
         )
     }
 
-    SystemBarColors(darkIcons = !isDark)
-
     CompositionLocalProvider(
         LocalColorScheme provides colorScheme,
         LocalFontScheme provides fontScheme,
@@ -89,20 +75,11 @@ fun YallaTheme(
     }
 }
 
-/**
- * Access the current Yalla design system values.
- */
 object System {
-    /**
-     * The current color scheme provided by [YallaTheme].
-     */
     val color: ColorScheme
         @Composable
         get() = LocalColorScheme.current
 
-    /**
-     * The current font scheme provided by [YallaTheme].
-     */
     val font: FontScheme
         @Composable
         get() = LocalFontScheme.current

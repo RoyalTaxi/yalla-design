@@ -1,6 +1,18 @@
+# Gradle
 .gradle/
 build/
 local.properties
+
+# IDE
 *.iml
 .idea/
+
+# Kotlin
+.kotlin/
+
+# OS
 .DS_Store
+
+# Misc
+*.log
+*.tmp

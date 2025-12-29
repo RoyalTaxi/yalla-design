@@ -1,4 +1,4 @@
-rootProject.name = "yalla-uikit"
+rootProject.name = "yalla-design"
 
 pluginManagement {
     repositories {

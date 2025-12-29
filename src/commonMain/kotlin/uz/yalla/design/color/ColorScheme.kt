@@ -1,4 +1,4 @@
-package uz.yalla.uikit.color
+package uz.yalla.design.color
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -281,6 +281,3 @@ fun dark(
 )
 
 val LocalColorScheme = staticCompositionLocalOf { light() }
-
-// Alias for backward compatibility
-val LocalCustomColorScheme = LocalColorScheme
