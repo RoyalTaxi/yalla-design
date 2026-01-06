@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-06
+
+### Changed
+- **Resources Migration**
+  - Migrated all font resources to `yalla-resources` library
+  - Now depends on `uz.yalla:resources:1.0.0`
+  - Fonts are now loaded from yalla-resources instead of local composeResources
+
+### Removed
+- Local composeResources directory (fonts moved to yalla-resources)
+
 ## [1.0.0] - 2024-12-29
 
 ### Added

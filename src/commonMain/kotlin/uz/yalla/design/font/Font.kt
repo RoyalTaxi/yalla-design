@@ -6,8 +6,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.FontResource
-import uz.yalla.design.generated.resources.Res
-import uz.yalla.design.generated.resources.nummernschild
+import uz.yalla.resources.Res
+import uz.yalla.resources.nummernschild
 
 expect val boldFont: FontResource
 expect val mediumFont: FontResource

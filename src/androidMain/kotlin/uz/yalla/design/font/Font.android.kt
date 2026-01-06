@@ -1,10 +1,10 @@
 package uz.yalla.design.font
 
 import org.jetbrains.compose.resources.FontResource
-import uz.yalla.design.generated.resources.Res
-import uz.yalla.design.generated.resources.roboto_bold
-import uz.yalla.design.generated.resources.roboto_medium
-import uz.yalla.design.generated.resources.roboto_normal
+import uz.yalla.resources.Res
+import uz.yalla.resources.roboto_bold
+import uz.yalla.resources.roboto_medium
+import uz.yalla.resources.roboto_normal
 
 actual val boldFont: FontResource = Res.font.roboto_bold
 actual val mediumFont: FontResource = Res.font.roboto_medium

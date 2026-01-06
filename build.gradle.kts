@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "uz.yalla"
-version = "1.0.0"
+version = "1.1.0"
 
 kotlin {
     androidTarget {
@@ -33,6 +33,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(libs.yalla.resources)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -61,11 +62,6 @@ android {
     }
 }
 
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "uz.yalla.design.generated.resources"
-    generateResClass = always
-}
 
 publishing {
     repositories {
