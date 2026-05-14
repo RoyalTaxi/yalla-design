@@ -37,11 +37,9 @@ def generate_android_colors(tokens: dict, out_dir: Path) -> None:
         ]
         lines.extend(f"    <color name=\"{name}\">{color}</color>" for name, color in rows)
         lines.append("</resources>")
-        # Changed filename to colors.xml and path to design module
         write_text(out_dir / "android" / "design" / "src" / "main" / "res" / folder / "colors.xml", "\n".join(lines) + "\n")
 
 def generate_android_themed_image_drawables(tokens: dict, out_dir: Path) -> None:
-    # Instead of aliases in values.xml, use proper XML drawables in drawable and drawable-night
     for variant, folder in (("light", "drawable"), ("dark", "drawable-night")):
         for image in tokens["themedImages"]["images"]:
             lines = [
@@ -79,7 +77,6 @@ def generate_android_color_helpers(tokens: dict, out_dir: Path) -> None:
         lines.append(f"        public val {camel_case(gradient_name)}: IntArray get() = intArrayOf({resource_names})")
     lines.append("    }")
     lines.append("}")
-    # Changed path to design module
     write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaColors.kt", "\n".join(lines) + "\n")
 
 def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
@@ -139,7 +136,6 @@ def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
         "    }",
         "}",
     ]
-    # Changed path to design module
     write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaFonts.kt", "\n".join(lines) + "\n")
 
 def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
@@ -155,8 +151,264 @@ def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
         suffix = "," if index < len(images) - 1 else ";"
         lines.append(f"    {image['name']}(R.drawable.{resource_alias_name(image['name'])}){suffix}")
     lines.append("}")
-    # Changed path to design module
     write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaThemedImage.kt", "\n".join(lines) + "\n")
+
+def generate_android_color_scheme(tokens: dict, out_dir: Path) -> None:
+    colors = tokens["colors"]
+    lines = [
+        "package uz.yalla.sdk.android.design",
+        "",
+        "import androidx.compose.runtime.Composable",
+        "import androidx.compose.runtime.Immutable",
+        "import androidx.compose.runtime.staticCompositionLocalOf",
+        "import androidx.compose.ui.graphics.Brush",
+        "import androidx.compose.ui.graphics.Color",
+        "import androidx.compose.ui.graphics.SolidColor",
+        "import androidx.compose.ui.res.colorResource",
+        "import uz.yalla.sdk.android.design.R",
+        "",
+        "@Immutable",
+        "public data class ColorScheme(",
+    ]
+    
+    # Define primary properties
+    for group in ["text", "background", "border", "button", "icon", "accent"]:
+        lines.append(f"    public val {group}: {pascal_case(group)},")
+    lines.append("    public val gradient: Gradient")
+    lines.append(")")
+    lines.append("")
+
+    # Define sub-classes
+    for group_name, group in colors["schemes"]["light"].items():
+        lines.append("    @Immutable")
+        lines.append(f"    public data class {pascal_case(group_name)}(")
+        for token_name in group:
+            lines.append(f"        public val {camel_case(token_name)}: Color,")
+        lines[-1] = lines[-1].rstrip(",")
+        lines.append("    )")
+        lines.append("")
+
+    lines.append("    @Immutable")
+    lines.append("    public data class Accent(")
+    for token_name in colors["accent"]:
+        lines.append(f"        public val {camel_case(token_name)}: Color,")
+    lines[-1] = lines[-1].rstrip(",")
+    lines.append("    )")
+    lines.append("")
+
+    lines.append("    @Immutable")
+    lines.append("    public data class Gradient(")
+    for gradient_name in colors["gradients"]:
+        lines.append(f"        public val {camel_case(gradient_name)}: Brush,")
+    lines[-1] = lines[-1].rstrip(",")
+    lines.append("    )")
+    lines.append("")
+
+    # rememberColorScheme
+    lines.append("@Composable")
+    lines.append("public fun rememberColorScheme(): ColorScheme = ColorScheme(")
+    for group_name, group in colors["schemes"]["light"].items():
+        lines.append(f"    {group_name} = ColorScheme.{pascal_case(group_name)}(")
+        for token_name in group:
+            lines.append(f"        {camel_case(token_name)} = colorResource(R.color.{android_color_name((group_name, token_name))}),")
+        lines[-1] = lines[-1].rstrip(",")
+        lines.append("    ),")
+    
+    lines.append("    accent = ColorScheme.Accent(")
+    for token_name in colors["accent"]:
+        lines.append(f"        {camel_case(token_name)} = colorResource(R.color.{android_color_name(('accent', token_name))}),")
+    lines[-1] = lines[-1].rstrip(",")
+    lines.append("    ),")
+
+    lines.append("    gradient = ColorScheme.Gradient(")
+    for gradient_name, stops in colors["gradients"].items():
+        colors_list = ", ".join(f"colorResource(R.color.{android_color_name(('gradient', gradient_name, str(i)))})" for i in range(len(stops)))
+        lines.append(f"        {camel_case(gradient_name)} = Brush.linearGradient(listOf({colors_list})),")
+    lines[-1] = lines[-1].rstrip(",")
+    lines.append("    )")
+    lines.append(")")
+    lines.append("")
+    lines.append("public val LocalColorScheme = staticCompositionLocalOf {")
+    lines.append("    error(\"No ColorScheme provided\")")
+    lines.append("}")
+
+    write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "ColorScheme.kt", "\n".join(lines) + "\n")
+
+def generate_android_font_scheme(tokens: dict, out_dir: Path) -> None:
+    styles = tokens["fonts"]["styles"]
+    lines = [
+        "package uz.yalla.sdk.android.design",
+        "",
+        "import androidx.compose.runtime.Composable",
+        "import androidx.compose.runtime.Immutable",
+        "import androidx.compose.runtime.staticCompositionLocalOf",
+        "import androidx.compose.ui.text.TextStyle",
+        "import androidx.compose.ui.text.font.Font",
+        "import androidx.compose.ui.text.font.FontFamily",
+        "import androidx.compose.ui.unit.sp",
+        "import uz.yalla.sdk.android.design.R",
+        "",
+        "@Immutable",
+        "public data class FontScheme(",
+        "    public val title: Title,",
+        "    public val body: Body,",
+        "    public val custom: Custom",
+        ") {",
+        "    @Immutable",
+        "    public data class Title(",
+        "        public val xLarge: TextStyle,",
+        "        public val large: TextStyle,",
+        "        public val base: TextStyle",
+        "    )",
+        "",
+        "    @Immutable",
+        "    public data class Body(",
+        "        public val caption: TextStyle,",
+        "        public val large: Weighty,",
+        "        public val base: Weighty,",
+        "        public val small: Weighty",
+        "    ) {",
+        "        @Immutable",
+        "        public data class Weighty(",
+        "            public val regular: TextStyle,",
+        "            public val medium: TextStyle,",
+        "            public val bold: TextStyle",
+        "        )",
+        "    }",
+        "",
+        "    @Immutable",
+        "    public data class Custom(",
+        "        public val carNumber: TextStyle",
+        "    )",
+        "}",
+        "",
+        "public val LocalFontScheme = staticCompositionLocalOf<FontScheme> {",
+        "    error(\"No FontScheme provided\")",
+        "}",
+        "",
+        "@Composable",
+        "public fun rememberFontScheme(): FontScheme {",
+    ]
+
+    # Helper to load font family
+    roles = ["normal", "medium", "bold", "carNumber"]
+    for role in roles:
+        res = tokens["fonts"]["fontResources"]["android"][role]
+        lines.append(f"    val {role}Font = FontFamily(Font(R.font.{res}))")
+    lines.append("")
+
+    def style_expr(key: str) -> str:
+        style = styles[key]
+        return (
+            f"TextStyle("
+            f"fontFamily = {style['font']}Font, "
+            f"fontSize = {kotlin_sp(style['sizeSp'])}, "
+            f"lineHeight = {kotlin_sp(style['lineHeightSp'])})"
+        )
+
+    lines.extend([
+        "    return FontScheme(",
+        "        title = FontScheme.Title(",
+        f"            xLarge = {style_expr('title.xLarge')},",
+        f"            large = {style_expr('title.large')},",
+        f"            base = {style_expr('title.base')}",
+        "        ),",
+        "        body = FontScheme.Body(",
+        f"            caption = {style_expr('body.caption')},",
+        "            large = FontScheme.Body.Weighty(",
+        f"                regular = {style_expr('body.large.regular')},",
+        f"                medium = {style_expr('body.large.medium')},",
+        f"                bold = {style_expr('body.large.bold')}",
+        "            ),",
+        "            base = FontScheme.Body.Weighty(",
+        f"                regular = {style_expr('body.base.regular')},",
+        f"                medium = {style_expr('body.base.medium')},",
+        f"                bold = {style_expr('body.base.bold')}",
+        "            ),",
+        "            small = FontScheme.Body.Weighty(",
+        f"                regular = {style_expr('body.small.regular')},",
+        f"                medium = {style_expr('body.small.medium')},",
+        f"                bold = {style_expr('body.small.bold')}",
+        "            )",
+        "        ),",
+        "        custom = FontScheme.Custom(",
+        f"            carNumber = {style_expr('custom.carNumber')}",
+        "        )",
+        "    )",
+        "}"
+    ])
+
+    write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "FontScheme.kt", "\n".join(lines) + "\n")
+
+def generate_android_theme(tokens: dict, out_dir: Path) -> None:
+    lines = [
+        "package uz.yalla.sdk.android.design",
+        "",
+        "import androidx.compose.foundation.isSystemInDarkTheme",
+        "import androidx.compose.material3.MaterialTheme",
+        "import androidx.compose.material3.darkColorScheme as materialDarkColorScheme",
+        "import androidx.compose.material3.lightColorScheme as materialLightColorScheme",
+        "import androidx.compose.runtime.Composable",
+        "import androidx.compose.runtime.CompositionLocalProvider",
+        "import androidx.compose.runtime.ReadOnlyComposable",
+        "",
+        "@Composable",
+        "public fun YallaTheme(",
+        "    isDark: Boolean = isSystemInDarkTheme(),",
+        "    colorScheme: ColorScheme = rememberColorScheme(),",
+        "    fontScheme: FontScheme = rememberFontScheme(),",
+        "    content: @Composable () -> Unit",
+        ") {",
+        "    val materialColorScheme = if (isDark) {",
+        "        materialDarkColorScheme(",
+        "            primary = colorScheme.button.active,",
+        "            onPrimary = colorScheme.text.white,",
+        "            secondary = colorScheme.button.secondary,",
+        "            tertiary = colorScheme.button.tertiary,",
+        "            background = colorScheme.background.base,",
+        "            surface = colorScheme.background.secondary,",
+        "            error = colorScheme.text.red,",
+        "            onBackground = colorScheme.text.base,",
+        "            onSurface = colorScheme.text.base",
+        "        )",
+        "    } else {",
+        "        materialLightColorScheme(",
+        "            primary = colorScheme.button.active,",
+        "            onPrimary = colorScheme.text.white,",
+        "            secondary = colorScheme.button.secondary,",
+        "            tertiary = colorScheme.button.tertiary,",
+        "            background = colorScheme.background.base,",
+        "            surface = colorScheme.background.secondary,",
+        "            error = colorScheme.text.red,",
+        "            onBackground = colorScheme.text.base,",
+        "            onSurface = colorScheme.text.base",
+        "        )",
+        "    }",
+        "",
+        "    CompositionLocalProvider(",
+        "        LocalColorScheme provides colorScheme,",
+        "        LocalFontScheme provides fontScheme",
+        "    ) {",
+        "        MaterialTheme(",
+        "            colorScheme = materialColorScheme,",
+        "            content = content",
+        "        )",
+        "    }",
+        "}",
+        "",
+        "public object System {",
+        "    public val color: ColorScheme",
+        "        @Composable",
+        "        @ReadOnlyComposable",
+        "        get() = LocalColorScheme.current",
+        "",
+        "    public val font: FontScheme",
+        "        @Composable",
+        "        @ReadOnlyComposable",
+        "        get() = LocalFontScheme.current",
+        "}",
+    ]
+    write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "Theme.kt", "\n".join(lines) + "\n")
 
 def generate_android_design(tokens: dict, out_dir: Path) -> None:
     generate_android_colors(tokens, out_dir)
@@ -164,6 +416,9 @@ def generate_android_design(tokens: dict, out_dir: Path) -> None:
     generate_android_color_helpers(tokens, out_dir)
     generate_android_fonts_helpers(tokens, out_dir)
     generate_android_themed_image_helpers(tokens, out_dir)
+    generate_android_color_scheme(tokens, out_dir)
+    generate_android_font_scheme(tokens, out_dir)
+    generate_android_theme(tokens, out_dir)
 
 # endregion
 
