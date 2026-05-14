@@ -1,0 +1,64 @@
+{
+  "images": [
+    {
+      "name": "BlurryLogo",
+      "light": "img_light_blurry_logo",
+      "dark": "img_dark_blurry_logo"
+    },
+    {
+      "name": "CloseCircle",
+      "light": "img_light_close_circle",
+      "dark": "img_dark_close_circle"
+    },
+    {
+      "name": "Login",
+      "light": "img_light_login",
+      "dark": "img_dark_login"
+    },
+    {
+      "name": "Logout",
+      "light": "img_light_logout",
+      "dark": "img_dark_logout"
+    },
+    {
+      "name": "MapPin",
+      "light": "img_light_map_pin",
+      "dark": "img_dark_map_pin"
+    },
+    {
+      "name": "NotificationMute",
+      "light": "img_light_notification_mute",
+      "dark": "img_dark_notification_mute"
+    },
+    {
+      "name": "OrderHistory",
+      "light": "img_light_order_history",
+      "dark": "img_dark_order_history"
+    },
+    {
+      "name": "OrderSearch",
+      "light": "img_light_order_search",
+      "dark": "img_dark_order_search"
+    },
+    {
+      "name": "Safety",
+      "light": "img_light_safety",
+      "dark": "img_dark_safety"
+    },
+    {
+      "name": "ShieldCheck",
+      "light": "img_light_shield_check",
+      "dark": "img_dark_shield_check"
+    },
+    {
+      "name": "TariffCard",
+      "light": "img_light_tariff_card",
+      "dark": "img_dark_tariff_card"
+    },
+    {
+      "name": "TrashCan",
+      "light": "img_light_trash_can",
+      "dark": "img_dark_trash_can"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "schemes": {
+    "light": {
+      "text": {
+        "base": "#101828",
+        "subtle": "#98A2B3",
+        "link": "#562DF8",
+        "red": "#F42500",
+        "white": "#FFFFFF"
+      },
+      "background": {
+        "base": "#FFFFFF",
+        "brand": "#562DF8",
+        "secondary": "#F7F7F7",
+        "tertiary": "#E9EAEA"
+      },
+      "border": {
+        "disabled": "#E4E7EC",
+        "filled": "#101828",
+        "white": "#FFFFFF",
+        "error": "#F42500"
+      },
+      "button": {
+        "active": "#562DF8",
+        "disabled": "#C8CBFA",
+        "secondary": "#F7F7F7",
+        "tertiary": "#101828",
+        "disabledTertiary": "#CBD2E1"
+      },
+      "icon": {
+        "white": "#FFFFFF",
+        "base": "#101828",
+        "secondary": "#562DF8",
+        "disabled": "#C8CBFA",
+        "red": "#F42500",
+        "subtle": "#98A2B3"
+      }
+    },
+    "dark": {
+      "text": {
+        "base": "#FFFFFF",
+        "subtle": "#747C8B",
+        "link": "#562DF8",
+        "red": "#F42500",
+        "white": "#FFFFFF"
+      },
+      "background": {
+        "base": "#1A1A20",
+        "brand": "#562DF8",
+        "secondary": "#21222B",
+        "tertiary": "#1D1D26"
+      },
+      "border": {
+        "disabled": "#383843",
+        "filled": "#FFFFFF",
+        "white": "#FFFFFF",
+        "error": "#F42500"
+      },
+      "button": {
+        "active": "#562DF8",
+        "disabled": "#2C2D34",
+        "secondary": "#F7F7F7",
+        "tertiary": "#FFFFFF",
+        "disabledTertiary": "#CBD2E1"
+      },
+      "icon": {
+        "white": "#FFFFFF",
+        "base": "#FFFFFF",
+        "secondary": "#562DF8",
+        "disabled": "#2C2D34",
+        "red": "#F42500",
+        "subtle": "#98A2B3"
+      }
+    }
+  },
+  "accent": {
+    "pinkSun": "#FF234B",
+    "color1": "#FFD1D2",
+    "color2": "#CADDFF",
+    "color3": "#FFDFAB",
+    "color4": "#A7FFF9",
+    "color5": "#D6C8FF"
+  },
+  "gradients": {
+    "splash": [
+      {
+        "color": "#7957FF",
+        "position": 0
+      },
+      {
+        "color": "#562DF8",
+        "position": 0.5
+      },
+      {
+        "color": "#3812CE",
+        "position": 1
+      }
+    ],
+    "sunsetNight": [
+      {
+        "color": "#FF234B",
+        "position": 0
+      },
+      {
+        "color": "#2F00EC",
+        "position": 1
+      }
+    ]
+  }
+}

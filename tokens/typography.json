@@ -1,0 +1,100 @@
+{
+  "fontResources": {
+    "android": {
+      "normal": "roboto_normal",
+      "medium": "roboto_medium",
+      "bold": "roboto_bold",
+      "carNumber": "nummernschild"
+    },
+    "ios": {
+      "normal": "sfpro_normal",
+      "medium": "sfpro_medium",
+      "bold": "sfpro_bold",
+      "carNumber": "nummernschild"
+    },
+    "cmpAndroid": {
+      "normal": "roboto_normal",
+      "medium": "roboto_medium",
+      "bold": "roboto_bold",
+      "carNumber": "nummernschild"
+    },
+    "cmpIos": {
+      "normal": "sfpro_normal",
+      "medium": "sfpro_medium",
+      "bold": "sfpro_bold",
+      "carNumber": "nummernschild"
+    }
+  },
+  "styles": {
+    "title.xLarge": {
+      "font": "bold",
+      "sizeSp": 30,
+      "lineHeightSp": 30
+    },
+    "title.large": {
+      "font": "bold",
+      "sizeSp": 22,
+      "lineHeightSp": 22
+    },
+    "title.base": {
+      "font": "bold",
+      "sizeSp": 20,
+      "lineHeightSp": 20
+    },
+    "body.caption": {
+      "font": "medium",
+      "sizeSp": 13,
+      "lineHeightSp": 15.6
+    },
+    "body.large.regular": {
+      "font": "normal",
+      "sizeSp": 18,
+      "lineHeightSp": 21.6
+    },
+    "body.large.medium": {
+      "font": "medium",
+      "sizeSp": 18,
+      "lineHeightSp": 21.6
+    },
+    "body.large.bold": {
+      "font": "bold",
+      "sizeSp": 18,
+      "lineHeightSp": 21.6
+    },
+    "body.base.regular": {
+      "font": "normal",
+      "sizeSp": 16,
+      "lineHeightSp": 20.8
+    },
+    "body.base.medium": {
+      "font": "medium",
+      "sizeSp": 16,
+      "lineHeightSp": 20.8
+    },
+    "body.base.bold": {
+      "font": "bold",
+      "sizeSp": 16,
+      "lineHeightSp": 20.8
+    },
+    "body.small.regular": {
+      "font": "normal",
+      "sizeSp": 14,
+      "lineHeightSp": 15.4
+    },
+    "body.small.medium": {
+      "font": "medium",
+      "sizeSp": 14,
+      "lineHeightSp": 15.4
+    },
+    "body.small.bold": {
+      "font": "bold",
+      "sizeSp": 14,
+      "lineHeightSp": 15.4
+    },
+    "custom.carNumber": {
+      "font": "carNumber",
+      "sizeSp": 12,
+      "lineHeightSp": 16
+    }
+  }
+}
