@@ -20,14 +20,20 @@ def check() -> None:
         for relative_path in first_files:
             if (first / relative_path).read_bytes() != (second / relative_path).read_bytes():
                 raise DesignError(f"generated file is not deterministic: {relative_path}")
-        for relative_path in (
-            Path("android/design/src/main/res/values/colors.xml"),
-            Path("android/design/src/main/res/values-night/colors.xml"),
-        ):
-            ElementTree.parse(first / relative_path)
         
-        # Verify a themed image drawable exists (prefix 'yalla_' removed)
+        # Verify Kotlin files exist for both platforms
+        for platform in ["cmp", "android"]:
+            for folder in ["color", "font", "theme", "image"]:
+                if platform == "cmp":
+                    kotlin_path = first / platform / "design" / "src" / "commonMain" / "kotlin" / "uz" / "yalla" / "design" / folder
+                else:
+                    kotlin_path = first / platform / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / folder
+                if not kotlin_path.exists():
+                    raise DesignError(f"missing {folder} directory for {platform}: {kotlin_path}")
+
+        # Verify a themed image drawable exists (prefix 'img_' used)
         themed_img = first / "android/design/src/main/res/drawable/img_login.xml"
         if not themed_img.exists():
             raise DesignError(f"missing themed image drawable: {themed_img}")
         ElementTree.parse(themed_img)
+
