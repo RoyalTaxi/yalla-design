@@ -58,23 +58,23 @@ def generate_android_color_helpers(tokens: dict, out_dir: Path) -> None:
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
-        "public object YallaColors {",
+        "object YallaColors {",
     ]
     for group_name, group in colors["schemes"]["light"].items():
-        lines.append(f"    public object {pascal_case(group_name)} {{")
+        lines.append(f"    object {pascal_case(group_name)} {{")
         for token_name in group:
-            lines.append(f"        public val {camel_case(token_name)}: Int get() = R.color.{android_color_name((group_name, token_name))}")
+            lines.append(f"        val {camel_case(token_name)}: Int get() = R.color.{android_color_name((group_name, token_name))}")
         lines.append("    }")
         lines.append("")
-    lines.append("    public object Accent {")
+    lines.append("    object Accent {")
     for token_name in tokens["colors"]["accent"]:
-        lines.append(f"        public val {camel_case(token_name)}: Int get() = R.color.{android_color_name(('accent', token_name))}")
+        lines.append(f"        val {camel_case(token_name)}: Int get() = R.color.{android_color_name(('accent', token_name))}")
     lines.append("    }")
     lines.append("")
-    lines.append("    public object Gradient {")
+    lines.append("    object Gradient {")
     for gradient_name, stops in colors["gradients"].items():
         resource_names = ", ".join(f"R.color.{android_color_name(('gradient', gradient_name, str(index)))}" for index, _ in enumerate(stops))
-        lines.append(f"        public val {camel_case(gradient_name)}: IntArray get() = intArrayOf({resource_names})")
+        lines.append(f"        val {camel_case(gradient_name)}: IntArray get() = intArrayOf({resource_names})")
     lines.append("    }")
     lines.append("}")
     write_text(out_dir / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaColors.kt", "\n".join(lines) + "\n")
@@ -96,43 +96,43 @@ def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
-        "public data class YallaTextStyle(",
-        "    public val fontRes: Int,",
-        "    public val sizeSp: Float,",
-        "    public val lineHeightSp: Float",
+        "data class YallaTextStyle(",
+        "    val fontRes: Int,",
+        "    val sizeSp: Float,",
+        "    val lineHeightSp: Float",
         ")",
         "",
-        "public object YallaFonts {",
-        "    public object Title {",
-        f"        public val xLarge: YallaTextStyle = {style_expr('title.xLarge')}",
-        f"        public val large: YallaTextStyle = {style_expr('title.large')}",
-        f"        public val base: YallaTextStyle = {style_expr('title.base')}",
+        "object YallaFonts {",
+        "    object Title {",
+        f"        val xLarge: YallaTextStyle = {style_expr('title.xLarge')}",
+        f"        val large: YallaTextStyle = {style_expr('title.large')}",
+        f"        val base: YallaTextStyle = {style_expr('title.base')}",
         "    }",
         "",
-        "    public object Body {",
-        f"        public val caption: YallaTextStyle = {style_expr('body.caption')}",
+        "    object Body {",
+        f"        val caption: YallaTextStyle = {style_expr('body.caption')}",
         "",
-        "        public object Large {",
-        f"            public val regular: YallaTextStyle = {style_expr('body.large.regular')}",
-        f"            public val medium: YallaTextStyle = {style_expr('body.large.medium')}",
-        f"            public val bold: YallaTextStyle = {style_expr('body.large.bold')}",
+        "        object Large {",
+        f"            val regular: YallaTextStyle = {style_expr('body.large.regular')}",
+        f"            val medium: YallaTextStyle = {style_expr('body.large.medium')}",
+        f"            val bold: YallaTextStyle = {style_expr('body.large.bold')}",
         "        }",
         "",
-        "        public object Base {",
-        f"            public val regular: YallaTextStyle = {style_expr('body.base.regular')}",
-        f"            public val medium: YallaTextStyle = {style_expr('body.base.medium')}",
-        f"            public val bold: YallaTextStyle = {style_expr('body.base.bold')}",
+        "        object Base {",
+        f"            val regular: YallaTextStyle = {style_expr('body.base.regular')}",
+        f"            val medium: YallaTextStyle = {style_expr('body.base.medium')}",
+        f"            val bold: YallaTextStyle = {style_expr('body.base.bold')}",
         "        }",
         "",
-        "        public object Small {",
-        f"            public val regular: YallaTextStyle = {style_expr('body.small.regular')}",
-        f"            public val medium: YallaTextStyle = {style_expr('body.small.medium')}",
-        f"            public val bold: YallaTextStyle = {style_expr('body.small.bold')}",
+        "        object Small {",
+        f"            val regular: YallaTextStyle = {style_expr('body.small.regular')}",
+        f"            val medium: YallaTextStyle = {style_expr('body.small.medium')}",
+        f"            val bold: YallaTextStyle = {style_expr('body.small.bold')}",
         "        }",
         "    }",
         "",
-        "    public object Custom {",
-        f"        public val carNumber: YallaTextStyle = {style_expr('custom.carNumber')}",
+        "    object Custom {",
+        f"        val carNumber: YallaTextStyle = {style_expr('custom.carNumber')}",
         "    }",
         "}",
     ]
@@ -144,7 +144,7 @@ def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
-        "public enum class YallaThemedImage(public val resId: Int) {",
+        "enum class YallaThemedImage(val resId: Int) {",
     ]
     images = tokens["themedImages"]["images"]
     for index, image in enumerate(images):
