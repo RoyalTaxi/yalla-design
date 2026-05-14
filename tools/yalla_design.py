@@ -837,15 +837,8 @@ def generate_ios_themed_images(tokens: dict, out_dir: Path) -> None:
         "import SwiftUI",
         "#if canImport(UIKit)",
         "import UIKit",
-        "public typealias YallaInterfaceStyle = UIUserInterfaceStyle",
-        "public typealias YallaNativeImage = UIImage",
         "#elseif canImport(AppKit)",
         "import AppKit",
-        "public enum YallaInterfaceStyle: Sendable {",
-        "    case light",
-        "    case dark",
-        "}",
-        "public typealias YallaNativeImage = NSImage",
         "#endif",
         "import YallaResourcesIOS",
         "",
@@ -858,65 +851,31 @@ def generate_ios_themed_images(tokens: dict, out_dir: Path) -> None:
     lines.extend(
         [
             "",
-            "    public var lightResourceName: String {",
+            "    public var assetName: String {",
             "        switch self {",
         ]
     )
     for image in images:
         lines.append(f"        case .{swift_case_name(image['name'])}:")
-        lines.append(f"            return \"{image['light']}\"")
+        lines.append(f"            return \"{resource_alias_name(image['name'])}\"")
     lines.extend(
         [
             "        }",
-            "    }",
-            "",
-            "    public var darkResourceName: String {",
-            "        switch self {",
-        ]
-    )
-    for image in images:
-        lines.append(f"        case .{swift_case_name(image['name'])}:")
-        lines.append(f"            return \"{image['dark']}\"")
-    lines.extend(
-        [
-            "        }",
-            "    }",
-            "",
-            "    public func resourceName(for style: YallaInterfaceStyle) -> String {",
-            "        return style == .dark ? darkResourceName : lightResourceName",
-            "    }",
-            "",
-            "    public func nativeImage(for style: YallaInterfaceStyle) -> YallaNativeImage? {",
-            "        guard let url = YallaResourcesIOS.drawableURL(resourceName(for: style)) else {",
-            "            return nil",
-            "        }",
-            "        #if canImport(UIKit)",
-            "        return UIImage(contentsOfFile: url.path)",
-            "        #elseif canImport(AppKit)",
-            "        return NSImage(contentsOf: url)",
-            "        #endif",
             "    }",
             "",
             "    #if canImport(UIKit)",
-            "    public func uiImage(for style: UIUserInterfaceStyle) -> UIImage? {",
-            "        return nativeImage(for: style)",
+            "    public func uiImage(compatibleWith traitCollection: UITraitCollection? = nil) -> UIImage? {",
+            "        return YallaResourcesIOS.platformImage(assetName, compatibleWith: traitCollection)",
             "    }",
             "    #elseif canImport(AppKit)",
-            "    public func nsImage(for style: YallaInterfaceStyle) -> NSImage? {",
-            "        return nativeImage(for: style)",
+            "    public func nsImage() -> NSImage? {",
+            "        return YallaResourcesIOS.platformImage(assetName)",
             "    }",
             "    #endif",
             "",
-            "    public func image(for colorScheme: ColorScheme) -> Image {",
-            "        let style: YallaInterfaceStyle = colorScheme == .dark ? .dark : .light",
-            "        if let nativeImage = nativeImage(for: style) {",
-            "            #if canImport(UIKit)",
-            "            return Image(uiImage: nativeImage)",
-            "            #elseif canImport(AppKit)",
-            "            return Image(nsImage: nativeImage)",
-            "            #endif",
-            "        }",
-            "        return Image(resourceName(for: style), bundle: YallaResourcesIOS.bundle)",
+            "    @available(iOS 13.0, macOS 10.15, *)",
+            "    public var image: Image {",
+            "        YallaResourcesIOS.swiftUIImage(assetName)",
             "    }",
             "}",
         ]

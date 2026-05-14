@@ -29,7 +29,7 @@ tokens/typography.json
 tokens/themed-images.json
     +-> Compose Multiplatform ThemedImage registry
     +-> Android drawable / drawable-night mapping
-    +-> iOS appearance-aware image mapping
+    +-> iOS appearance-aware YallaImages.xcassets mapping
 ```
 
 This repo does not own strings, copy, icons, or general image/font binaries.
