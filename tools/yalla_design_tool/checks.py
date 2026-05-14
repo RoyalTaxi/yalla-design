@@ -21,9 +21,13 @@ def check() -> None:
             if (first / relative_path).read_bytes() != (second / relative_path).read_bytes():
                 raise DesignError(f"generated file is not deterministic: {relative_path}")
         for relative_path in (
-            Path("android/sdk/src/main/res/values/yalla_colors.xml"),
-            Path("android/sdk/src/main/res/values-night/yalla_colors.xml"),
-            Path("android/sdk/src/main/res/values/yalla_themed_images.xml"),
-            Path("android/sdk/src/main/res/values-night/yalla_themed_images.xml"),
+            Path("android/design/src/main/res/values/colors.xml"),
+            Path("android/design/src/main/res/values-night/colors.xml"),
         ):
             ElementTree.parse(first / relative_path)
+        
+        # Verify a themed image drawable exists
+        themed_img = first / "android/design/src/main/res/drawable/yalla_img_login.xml"
+        if not themed_img.exists():
+            raise DesignError(f"missing themed image drawable: {themed_img}")
+        ElementTree.parse(themed_img)

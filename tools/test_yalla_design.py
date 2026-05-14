@@ -26,12 +26,13 @@ class YallaDesignTest(unittest.TestCase):
                 out / "cmp" / "design" / "src" / "androidMain" / "kotlin" / "uz" / "yalla" / "design" / "font" / "Font.android.kt",
                 out / "cmp" / "design" / "src" / "iosMain" / "kotlin" / "uz" / "yalla" / "design" / "font" / "Font.ios.kt",
                 out / "cmp" / "design" / "src" / "commonMain" / "kotlin" / "uz" / "yalla" / "design" / "image" / "ThemedImage.kt",
-                out / "android" / "sdk" / "src" / "main" / "res" / "values" / "yalla_colors.xml",
-                out / "android" / "sdk" / "src" / "main" / "res" / "values-night" / "yalla_colors.xml",
-                out / "android" / "sdk" / "src" / "main" / "res" / "values" / "yalla_themed_images.xml",
-                out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaColors.kt",
-                out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaFonts.kt",
-                out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaThemedImage.kt",
+                out / "android" / "design" / "src" / "main" / "res" / "values" / "colors.xml",
+                out / "android" / "design" / "src" / "main" / "res" / "values-night" / "colors.xml",
+                out / "android" / "design" / "src" / "main" / "res" / "drawable" / "yalla_img_login.xml",
+                out / "android" / "design" / "src" / "main" / "res" / "drawable-night" / "yalla_img_login.xml",
+                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaColors.kt",
+                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaFonts.kt",
+                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaThemedImage.kt",
                 out / "ios" / "Sources" / "YallaDesignIOS" / "YallaColors.swift",
                 out / "ios" / "Sources" / "YallaDesignIOS" / "YallaFonts.swift",
                 out / "ios" / "Sources" / "YallaDesignIOS" / "YallaThemedImage.swift",
@@ -39,9 +40,9 @@ class YallaDesignTest(unittest.TestCase):
             for path in expected:
                 self.assertTrue(path.exists(), f"missing generated file: {path}")
 
-            ElementTree.parse(out / "android" / "sdk" / "src" / "main" / "res" / "values" / "yalla_colors.xml")
-            ElementTree.parse(out / "android" / "sdk" / "src" / "main" / "res" / "values-night" / "yalla_colors.xml")
-            ElementTree.parse(out / "android" / "sdk" / "src" / "main" / "res" / "values" / "yalla_themed_images.xml")
+            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "values" / "colors.xml")
+            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "values-night" / "colors.xml")
+            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "drawable" / "yalla_img_login.xml")
 
             metadata = json.loads((out / "metadata" / "yalla-design.json").read_text(encoding="utf-8"))
             self.assertEqual(12, len(metadata["themedImages"]["images"]))
