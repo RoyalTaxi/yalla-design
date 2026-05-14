@@ -26,8 +26,8 @@ def check() -> None:
         ):
             ElementTree.parse(first / relative_path)
         
-        # Verify a themed image drawable exists
-        themed_img = first / "android/design/src/main/res/drawable/yalla_img_login.xml"
+        # Verify a themed image drawable exists (prefix 'yalla_' removed)
+        themed_img = first / "android/design/src/main/res/drawable/img_login.xml"
         if not themed_img.exists():
             raise DesignError(f"missing themed image drawable: {themed_img}")
         ElementTree.parse(themed_img)
