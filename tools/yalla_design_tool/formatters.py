@@ -24,7 +24,7 @@ def camel_case(value: str) -> str:
     return name[:1].lower() + name[1:]
 
 def android_color_name(parts: tuple[str, ...]) -> str:
-    return "yalla_" + "_".join(lower_snake(part) for part in parts)
+    return "_".join(lower_snake(part) for part in parts)
 
 def swift_color_name(parts: tuple[str, ...]) -> str:
     head, *tail = parts
@@ -49,11 +49,10 @@ def argb_literal(color: str) -> str:
     return "0xFF" + color.removeprefix("#").upper()
 
 def kotlin_color_literal(color: str) -> str:
-    from .formatters import argb_literal # type: ignore
     return f"Color({argb_literal(color)})"
 
 def resource_alias_name(image_name: str) -> str:
-    return "yalla_img_" + lower_snake(image_name)
+    return "img_" + lower_snake(image_name)
 
 def format_number(value: object) -> str:
     if isinstance(value, int):

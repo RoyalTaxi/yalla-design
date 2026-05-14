@@ -12,19 +12,6 @@ def copy_generated_tree(source: Path, destination: Path) -> list[Path]:
     if not destination.exists():
         raise DesignError(f"destination repo does not exist: {destination}")
 
-    # Cleanup stale files if this is the Android repo
-    if (destination / "sdk/src/main/res").exists():
-        res_dir = destination / "sdk/src/main/res"
-        for folder in ["values", "values-night"]:
-            for name in ["yalla_colors.xml", "yalla_themed_images.xml"]:
-                stale = res_dir / folder / name
-                if stale.exists():
-                    stale.unlink()
-        # Also cleanup old Kotlin helpers in sdk module
-        kotlin_base = destination / "sdk/src/main/kotlin/uz/yalla/sdk/android/design"
-        if kotlin_base.exists():
-            shutil.rmtree(kotlin_base)
-
     written: list[Path] = []
     for path in sorted(source.rglob("*")):
         if not path.is_file():
