@@ -50,6 +50,27 @@ Generate sample outputs into `build/generated`:
 python3 tools/yalla_design.py generate --out build/generated
 ```
 
+Sync generated outputs into sibling SDK repos:
+
+```bash
+python3 tools/yalla_design.py sync
+```
+
+The default sync destinations are:
+
+- `../yalla-sdk`
+- `../yalla-sdk-android`
+- `../yalla-sdk-ios`
+
+Override them when needed:
+
+```bash
+python3 tools/yalla_design.py sync \
+  --cmp-root /path/to/yalla-sdk \
+  --android-root /path/to/yalla-sdk-android \
+  --ios-root /path/to/yalla-sdk-ios
+```
+
 Run generator checks:
 
 ```bash
