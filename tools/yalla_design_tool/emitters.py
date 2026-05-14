@@ -54,7 +54,7 @@ def generate_android_themed_image_drawables(tokens: dict, out_dir: Path) -> None
 def generate_android_color_helpers(tokens: dict, out_dir: Path) -> None:
     colors = tokens["colors"]
     lines = [
-        "package uz.yalla.design",
+        "package uz.yalla.design.color",
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
@@ -92,7 +92,7 @@ def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
         )
 
     lines = [
-        "package uz.yalla.design",
+        "package uz.yalla.design.color",
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
@@ -140,7 +140,7 @@ def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
 
 def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
     lines = [
-        "package uz.yalla.design",
+        "package uz.yalla.design.color",
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
@@ -156,7 +156,7 @@ def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
 def generate_android_color_scheme(tokens: dict, out_dir: Path) -> None:
     colors = tokens["colors"]
     lines = [
-        "package uz.yalla.design",
+        "package uz.yalla.design.color",
         "",
         "import androidx.compose.runtime.Composable",
         "import androidx.compose.runtime.Immutable",
@@ -237,7 +237,7 @@ def generate_android_color_scheme(tokens: dict, out_dir: Path) -> None:
 def generate_android_font_scheme(tokens: dict, out_dir: Path) -> None:
     styles = tokens["fonts"]["styles"]
     lines = [
-        "package uz.yalla.design",
+        "package uz.yalla.design.color",
         "",
         "import androidx.compose.runtime.Composable",
         "import androidx.compose.runtime.Immutable",
@@ -342,7 +342,7 @@ def generate_android_font_scheme(tokens: dict, out_dir: Path) -> None:
 
 def generate_android_theme(tokens: dict, out_dir: Path) -> None:
     lines = [
-        "package uz.yalla.design",
+        "package uz.yalla.design.color",
         "",
         "import androidx.compose.foundation.isSystemInDarkTheme",
         "import androidx.compose.material3.MaterialTheme",
@@ -427,7 +427,7 @@ def generate_android_design(tokens: dict, out_dir: Path) -> None:
 def generate_cmp_colors(tokens: dict, out_dir: Path) -> None:
     colors = tokens["colors"]
     lines = [
-        "package uz.yalla.design.color",
+        "package uz.yalla.design.color.color",
         "",
         "import androidx.compose.ui.geometry.Offset",
         "import androidx.compose.ui.graphics.Brush",
@@ -496,7 +496,7 @@ def with_comma(lines: list[str]) -> list[str]:
 def generate_cmp_font_common(tokens: dict, out_dir: Path) -> None:
     styles = tokens["fonts"]["styles"]
     lines = [
-        "package uz.yalla.design.font",
+        "package uz.yalla.design.color.font",
         "",
         "import androidx.compose.runtime.Composable",
         "import androidx.compose.ui.text.TextStyle",
@@ -572,7 +572,7 @@ def generate_cmp_font_common(tokens: dict, out_dir: Path) -> None:
 def generate_cmp_font_platform(tokens: dict, out_dir: Path, platform: str, source_set: str) -> None:
     resources = tokens["fonts"]["fontResources"][platform]
     lines = [
-        "package uz.yalla.design.font",
+        "package uz.yalla.design.color.font",
         "",
         "import org.jetbrains.compose.resources.FontResource",
         "import uz.yalla.resources.Res",
@@ -595,7 +595,7 @@ def generate_cmp_themed_images(tokens: dict, out_dir: Path) -> None:
     images = tokens["themedImages"]["images"]
     resource_names = sorted({image["light"] for image in images} | {image["dark"] for image in images})
     lines = [
-        "package uz.yalla.design.image",
+        "package uz.yalla.design.color.image",
         "",
         "import org.jetbrains.compose.resources.DrawableResource",
         "import uz.yalla.resources.Res",
