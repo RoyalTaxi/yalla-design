@@ -54,7 +54,7 @@ def generate_android_themed_image_drawables(tokens: dict, out_dir: Path) -> None
 def generate_android_color_helpers(tokens: dict, out_dir: Path) -> None:
     colors = tokens["colors"]
     lines = [
-        "package uz.yalla.sdk.android.design",
+        "package uz.yalla.design",
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
@@ -92,7 +92,7 @@ def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
         )
 
     lines = [
-        "package uz.yalla.sdk.android.design",
+        "package uz.yalla.design",
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
@@ -140,7 +140,7 @@ def generate_android_fonts_helpers(tokens: dict, out_dir: Path) -> None:
 
 def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
     lines = [
-        "package uz.yalla.sdk.android.design",
+        "package uz.yalla.design",
         "",
         "import uz.yalla.sdk.android.design.R",
         "",
@@ -156,7 +156,7 @@ def generate_android_themed_image_helpers(tokens: dict, out_dir: Path) -> None:
 def generate_android_color_scheme(tokens: dict, out_dir: Path) -> None:
     colors = tokens["colors"]
     lines = [
-        "package uz.yalla.sdk.android.design",
+        "package uz.yalla.design",
         "",
         "import androidx.compose.runtime.Composable",
         "import androidx.compose.runtime.Immutable",
@@ -237,7 +237,7 @@ def generate_android_color_scheme(tokens: dict, out_dir: Path) -> None:
 def generate_android_font_scheme(tokens: dict, out_dir: Path) -> None:
     styles = tokens["fonts"]["styles"]
     lines = [
-        "package uz.yalla.sdk.android.design",
+        "package uz.yalla.design",
         "",
         "import androidx.compose.runtime.Composable",
         "import androidx.compose.runtime.Immutable",
@@ -342,7 +342,7 @@ def generate_android_font_scheme(tokens: dict, out_dir: Path) -> None:
 
 def generate_android_theme(tokens: dict, out_dir: Path) -> None:
     lines = [
-        "package uz.yalla.sdk.android.design",
+        "package uz.yalla.design",
         "",
         "import androidx.compose.foundation.isSystemInDarkTheme",
         "import androidx.compose.material3.MaterialTheme",
