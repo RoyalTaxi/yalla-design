@@ -11,7 +11,7 @@ class YallaDesignTest(unittest.TestCase):
     def test_validate_current_tokens(self):
         tokens = yalla_design.validate()
         self.assertIn("colors", tokens)
-        self.assertIn("typography", tokens)
+        self.assertIn("fonts", tokens)
         self.assertIn("themedImages", tokens)
 
     def test_generate_expected_outputs(self):
@@ -30,10 +30,10 @@ class YallaDesignTest(unittest.TestCase):
                 out / "android" / "sdk" / "src" / "main" / "res" / "values-night" / "yalla_colors.xml",
                 out / "android" / "sdk" / "src" / "main" / "res" / "values" / "yalla_themed_images.xml",
                 out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaColors.kt",
-                out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaTypography.kt",
+                out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaFonts.kt",
                 out / "android" / "sdk" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaThemedImage.kt",
                 out / "ios" / "Sources" / "YallaDesignIOS" / "YallaColors.swift",
-                out / "ios" / "Sources" / "YallaDesignIOS" / "YallaTypography.swift",
+                out / "ios" / "Sources" / "YallaDesignIOS" / "YallaFonts.swift",
                 out / "ios" / "Sources" / "YallaDesignIOS" / "YallaThemedImage.swift",
             ]
             for path in expected:

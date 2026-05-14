@@ -21,10 +21,10 @@ tokens/colors.json
     +-> Android native color resources/helpers
     +-> iOS native color assets/helpers
 
-tokens/typography.json
+tokens/fonts.json
     +-> Compose Multiplatform FontScheme source
-    +-> Android native font/typography helpers
-    +-> iOS native font/typography helpers
+    +-> Android native font helpers
+    +-> iOS native font helpers
 
 tokens/themed-images.json
     +-> Compose Multiplatform ThemedImage registry
