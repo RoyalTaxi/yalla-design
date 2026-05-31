@@ -19,7 +19,7 @@ The design system intentionally stays small:
 tokens/colors.json
     +-> Compose Multiplatform ColorScheme source
     +-> Android native color resources/helpers
-    +-> iOS native color assets/helpers
+    +-> iOS native YallaColors.xcassets .colorset resources
 
 tokens/fonts.json
     +-> Compose Multiplatform FontScheme source
@@ -29,12 +29,12 @@ tokens/fonts.json
 tokens/themed-images.json
     +-> Compose Multiplatform ThemedImage registry
     +-> Android drawable / drawable-night mapping
-    +-> iOS appearance-aware YallaImages.xcassets mapping
 ```
 
 This repo does not own strings, copy, icons, or general image/font binaries.
 Those assets live in `yalla-resources`; this repo owns the design meaning and
-mapping around them.
+mapping around them. iOS image light/dark appearance mapping is handled by
+`yalla-resources` through asset catalog appearances.
 
 ## Commands
 

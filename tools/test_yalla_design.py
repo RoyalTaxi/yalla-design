@@ -23,26 +23,27 @@ class YallaDesignTest(unittest.TestCase):
                 out / "metadata" / "yalla-design.json",
                 out / "cmp" / "design" / "src" / "commonMain" / "kotlin" / "uz" / "yalla" / "design" / "color" / "Color.kt",
                 out / "cmp" / "design" / "src" / "commonMain" / "kotlin" / "uz" / "yalla" / "design" / "font" / "Font.kt",
-                out / "cmp" / "design" / "src" / "androidMain" / "kotlin" / "uz" / "yalla" / "design" / "font" / "Font.android.kt",
-                out / "cmp" / "design" / "src" / "iosMain" / "kotlin" / "uz" / "yalla" / "design" / "font" / "Font.ios.kt",
                 out / "cmp" / "design" / "src" / "commonMain" / "kotlin" / "uz" / "yalla" / "design" / "image" / "ThemedImage.kt",
-                out / "android" / "design" / "src" / "main" / "res" / "values" / "colors.xml",
-                out / "android" / "design" / "src" / "main" / "res" / "values-night" / "colors.xml",
-                out / "android" / "design" / "src" / "main" / "res" / "drawable" / "yalla_img_login.xml",
-                out / "android" / "design" / "src" / "main" / "res" / "drawable-night" / "yalla_img_login.xml",
-                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaColors.kt",
-                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaFonts.kt",
-                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "YallaThemedImage.kt",
-                out / "ios" / "Sources" / "YallaDesignIOS" / "YallaColors.swift",
-                out / "ios" / "Sources" / "YallaDesignIOS" / "YallaFonts.swift",
-                out / "ios" / "Sources" / "YallaDesignIOS" / "YallaThemedImage.swift",
+                out / "android" / "design" / "src" / "main" / "res" / "drawable" / "img_login.xml",
+                out / "android" / "design" / "src" / "main" / "res" / "drawable-night" / "img_login.xml",
+                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "color" / "Color.kt",
+                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "font" / "Font.kt",
+                out / "android" / "design" / "src" / "main" / "kotlin" / "uz" / "yalla" / "sdk" / "android" / "design" / "image" / "ThemedImage.kt",
+                out / "ios" / "Sources" / "Design" / "YallaFonts.swift",
+                out / "ios" / "Sources" / "Resources" / "Resources" / "YallaColors.xcassets" / "text_base.colorset" / "Contents.json",
+                out / "ios" / "Sources" / "Resources" / "Resources" / "YallaColors.xcassets" / "accent_pink_sun.colorset" / "Contents.json",
             ]
             for path in expected:
                 self.assertTrue(path.exists(), f"missing generated file: {path}")
 
-            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "values" / "colors.xml")
-            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "values-night" / "colors.xml")
-            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "drawable" / "yalla_img_login.xml")
+            self.assertFalse(
+                (out / "ios" / "Sources" / "Design" / "YallaColors.swift").exists()
+            )
+            self.assertFalse(
+                (out / "ios" / "Sources" / "Design" / "YallaThemedImage.swift").exists()
+            )
+
+            ElementTree.parse(out / "android" / "design" / "src" / "main" / "res" / "drawable" / "img_login.xml")
 
             metadata = json.loads((out / "metadata" / "yalla-design.json").read_text(encoding="utf-8"))
             self.assertEqual(12, len(metadata["themedImages"]["images"]))
